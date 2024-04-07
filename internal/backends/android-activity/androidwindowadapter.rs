@@ -456,13 +456,14 @@ fn position_for_event(motion_event: &MotionEvent, offset: PhysicalPosition) -> P
     })
 }
 
-fn button_for_event(motion_event: &MotionEvent) -> PointerEventButton {
-    match motion_event.action_button() {
+fn button_for_event(_motion_event: &MotionEvent) -> PointerEventButton {
+    /*match motion_event.action_button() {
         android_activity::input::Button::Primary => PointerEventButton::Left,
         android_activity::input::Button::Secondary => PointerEventButton::Right,
         android_activity::input::Button::Tertiary => PointerEventButton::Middle,
         _ => PointerEventButton::Other,
-    }
+    }*/
+    PointerEventButton::Left
 }
 
 fn map_key_event(key_event: &android_activity::input::KeyEvent) -> Option<WindowEvent> {
