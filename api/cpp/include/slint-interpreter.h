@@ -17,7 +17,13 @@
 class QWidget;
 #    endif
 
+namespace cn::UI { class Control; }
+
+extern "C" void *slint_cnlib_get_control(const slint::cbindgen_private::WindowAdapterRc *window_adapter);
+
 namespace slint::cbindgen_private {
+
+
 //  This has to stay opaque, but VRc don't compile if it is just forward declared
 struct ErasedItemTreeBox : vtable::Dyn
 {
@@ -611,6 +617,15 @@ public:
         return wid;
     }
 #    endif
+
+    cn::UI::Control* cncontrol () const 
+    {
+        const cbindgen_private::WindowAdapterRcOpaque *win_ptr = nullptr;
+        cbindgen_private::slint_interpreter_component_instance_window(inner(), &win_ptr);
+        auto wid = reinterpret_cast<cn::UI::Control*>(slint_cnlib_get_control(
+                reinterpret_cast<const cbindgen_private::WindowAdapterRc *>(win_ptr)));
+        return wid;
+    }
 
     /// Set the value for a public property of this component
     ///
